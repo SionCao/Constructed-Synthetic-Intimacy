@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Living Persona Portrait</title>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="p5.js"></script>
+  <script src="https://unpkg.com/ml5@1/dist/ml5.min.js"></script>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="app">
+    <div id="ui-panel">
+      <div class="header">
+        <div class="header-copy">
+          <div class="small-label">OPENAI + P5.JS + WEBCAM + FACEMESH</div>
+          <h1>Living Persona Portrait</h1>
+        </div>
+        <button id="reset-button" class="ghost-button">Reset</button>
+      </div>
+
+      <div id="intro-card" class="card">
+        <p class="intro-text">
+          This project builds a speculative user portrait through three stages:
+          basic information, personality questions, and interest selection.
+          After the questionnaire, OpenAI generates associated words and phrases,
+          which are then used to form a live human-like portrait over the webcam feed.
+        </p>
+        <button id="start-button" class="primary-button">Start questionnaire</button>
+      </div>
+
+      <div id="questionnaire-card" class="card hidden">
+        <div class="progress-wrap">
+          <div class="progress-bar">
+            <div id="progress-fill"></div>
+          </div>
+
+          <div class="progress-meta">
+            <span id="stage-label"></span>
+            <span id="progress-label"></span>
+          </div>
+        </div>
+
+        <div id="question-block"></div>
+
+        <div class="nav-buttons">
+          <button id="back-button" class="ghost-button">Back</button>
+          <button id="next-button" class="primary-button">Next</button>
+        </div>
+      </div>
+
+      <div id="loading-card" class="card hidden">
+        <div class="loading-title">Generating your portrait...</div>
+        <div class="loading-text">
+          OpenAI is turning your answers into descriptive words and phrases.
+        </div>
+      </div>
+
+      <div id="result-card" class="card hidden">
+        <div class="result-top">
+          <div class="result-badge">Portrait generated</div>
+        </div>
+
+        <h2 id="result-title"></h2>
+        <p id="result-summary"></p>
+
+        <div class="result-section">
+          <h3>Keywords</h3>
+          <div id="keywords-container" class="pill-wrap"></div>
+        </div>
+
+        <div class="result-section">
+          <h3>Phrases</h3>
+          <div id="phrases-container" class="phrases-wrap"></div>
+        </div>
+
+        <div class="result-section">
+          <h3>Recommended directions</h3>
+          <ul id="result-recommendations"></ul>
+        </div>
+
+        <button id="regenerate-button" class="primary-button full-width">
+          Regenerate portrait
+        </button>
+      </div>
+    </div>
+
+    <div id="visual-panel" class="hidden">
+      <div class="card visual-card">
+        <div class="visual-header">
+          <div class="visual-title">LIVE VISUALISATION</div>
+          <div id="camera-status" class="camera-pill">Camera idle</div>
+        </div>
+
+        <div id="canvas-holder"></div>
+
+        <div class="visual-footer">
+          The portrait uses live webcam brightness, motion, face tracking,
+          and OpenAI-generated descriptors to form a shifting word-built face.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="sketch.js"></script>
+</body>
+</html>
